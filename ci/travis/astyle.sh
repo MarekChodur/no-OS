@@ -4,8 +4,6 @@ set -e
 
 . ./ci/travis/lib.sh
 
-echo_red() { printf "\033[1;31m$*\033[m\n"; }
-
 ASTYLE_EXT_LIST="${ASTYLE_EXT_LIST} .c .h"
 
 COMMIT_RANGE="${COMMIT_RANGE}"
@@ -23,6 +21,10 @@ then
 		COMMIT_RANGE=HEAD~1
 	fi
 fi
+
+echo_green "Running astyle on commit range '$COMMIT_RANGE'"
+echo_green "Commits should be:"
+git rev-parse $COMMIT_RANGE
 
 is_valid_file(){
 	[[ -f ".astyleignore" ]] &&
